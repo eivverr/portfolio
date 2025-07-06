@@ -9,11 +9,11 @@ export function useBirthday() {
         if (today > nextBirthday) {
             nextBirthday.setFullYear(nextBirthday.getFullYear() + 1)
         }
-        return Math.floor((nextBirthday - today) / 86400000)
+        return Math.floor((nextBirthday.getTime() - today.getTime()) / 86400000)
     })
 
     const daysSinceBorn = computed(() => {
-        return Math.floor((new Date() - BIRTHDAY) / 86400000)
+        return Math.floor((new Date().getTime() - BIRTHDAY.getTime()) / 86400000)
     })
 
     const currentAge = computed(() => {

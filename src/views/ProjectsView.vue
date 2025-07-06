@@ -14,9 +14,9 @@ const isCheckingProjects = ref(false)
 const currentProjectIndex = ref<number | null>(null)
 const lastProjectIndex = ref<number | null>(null)
 const currentProject = ref<Project | null>(null)
-const projectElements = ref<(HTMLElement | null)[]>([])
+const projectElements = ref<(any | null)[]>([])
 
-function setProjectElement(el: HTMLElement | null, index: number) {
+function setProjectElement(el: any | null, index: number) {
     projectElements.value[index] = el
 }
 
@@ -95,7 +95,7 @@ onUnmounted(() => {
             <CardProject
                 v-for="(project, i) in projects"
                 :key="i"
-                :ref="(el) => setProjectElement(el?.root ?? null, i)"
+                :ref="(el) => setProjectElement((el as any)?.root ?? null, i)"
                 :project="project"
                 :active="currentProjectIndex === i"
                 @mousedown.prevent

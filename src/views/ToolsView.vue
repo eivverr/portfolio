@@ -16,9 +16,9 @@ const navigationStore = useNavigationStore()
 const isCheckingTools = ref(false)
 const currentToolIndex = ref<number | null>(null)
 const currentTool = ref<Tool | null>(null)
-const toolElements = ref<(HTMLElement | null)[]>([])
+const toolElements = ref<(any | null)[]>([])
 
-function setToolElement(el: HTMLElement | null, index: number) {
+function setToolElement(el: any | null, index: number) {
     toolElements.value[index] = el
 }
 

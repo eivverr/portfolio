@@ -8,7 +8,7 @@ const props = defineProps<{
     active: boolean
 }>()
 
-const root = ref<HTMLElement | null>(null)
+const root = ref<any | null>(null)
 
 defineExpose({ root })
 </script>

@@ -13,7 +13,7 @@ const images = import.meta.glob('@/assets/img/nav-icons/*', { eager: true, impor
 const navRoutes = computed(() => router.getRoutes().filter((r) => r.name && r.name !== 'home'))
 
 function getNavIcon(routeName: string, color: string, imageType: string): string {
-    return images[`/src/assets/img/nav-icons/nav-icon-${routeName}-${color}.${imageType}`] || ''
+    return images[`/src/assets/img/nav-icons/nav-icon-${routeName}-${color}.${imageType}`] as string || ''
 }
 
 function animateArrow(direction: 'left' | 'right') {
@@ -76,8 +76,8 @@ onUnmounted(() => {
             <img
                 :src="
                     currentRoute.name === route.name
-                        ? getNavIcon(route.name, 'black', route.name === 'infos' ? 'png' : 'svg')
-                        : getNavIcon(route.name, 'white', route.name === 'infos' ? 'png' : 'svg')
+                        ? getNavIcon(route.name as string, 'black', route.name === 'infos' ? 'png' : 'svg')
+                        : getNavIcon(route.name as string, 'white', route.name === 'infos' ? 'png' : 'svg')
                 "
                 alt="Nav Icon"
                 :class="['nav-item', currentRoute.name === route.name ? 'nav-item--active' : '']"
