@@ -1,117 +1,61 @@
-<script setup>
-const birthday = new Date('2004-9-21')
+<script setup lang="ts">
+import InfoLineGroup from '@/components/misc/InfoLineGroup.vue'
+import InfoLine from '@/components/misc/InfoLine.vue'
+import { useBirthday } from '@/composables/useBirthday.ts'
 
-function daysUntilBirthday() {
-    let today = new Date()
-    let nextBirthday = new Date(today.getFullYear(), birthday.getMonth(), birthday.getDate())
-    if (today > nextBirthday) {
-        nextBirthday.setFullYear(nextBirthday.getFullYear() + 1)
-    }
-    return Math.floor((nextBirthday - today) / 86400000)
-}
-
-function daysSinceBorn() {
-    return Math.floor((new Date() - birthday) / 86400000)
-}
+const { daysSinceBorn, daysUntilBirthday } = useBirthday()
 </script>
 
 <template>
-    <div>
-        <table>
-            <tr>
-                <th>Nom</th>
-                <td>Loris Weier</td>
-            </tr>
-            <tr>
-                <th>Type</th>
-                <td>
-                    <div class="types">
-                        <img class="type" src="/img/types/type-acier.png" />
-                        <img class="type" src="/img/types/type-combat.png" />
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <th>Status actuel</th>
-                <td>Étudiant en Informatique</td>
-            </tr>
-            <tr>
-                <th>Github</th>
-                <td><a href="https://github.com/WashiFR" target="_blank">WashiFR</a></td>
-            </tr>
-        </table>
+    <div class="flex flex-col gap-1">
+        <InfoLineGroup>
+            <InfoLine title="Name">
+                <p class="text-lg">Loris Weier</p>
+            </InfoLine>
+            <InfoLine title="Type">
+                <img
+                    src="@/assets/img/type-acier.png"
+                    alt="Type Acier"
+                    class="h-2/3 w-auto rounded"
+                />
+            </InfoLine>
+            <InfoLine title="Status actuel">
+                <p class="text-lg">Étudiant en Informatique</p>
+            </InfoLine>
+            <InfoLine title="Github">
+                <a href="https://github.com/eivverr" target="_blank" class="text-lg"
+                    >github.com/eivverr</a
+                >
+            </InfoLine>
+        </InfoLineGroup>
 
-        <table>
-            <tr>
-                <th>Points d'Experience</th>
-                <td id="total-days">{{ daysSinceBorn() }}</td>
-            </tr>
-            <tr>
-                <th>Niveau suivant</th>
-                <td>
-                    <div class="exp-bar">
-                        <p id="exp-bar-text">{{ daysUntilBirthday() }}</p>
-                        <progress
-                            id="exp-bar"
-                            :value="365 - daysUntilBirthday()"
-                            max="365"
-                        ></progress>
-                    </div>
-                </td>
-            </tr>
-        </table>
+        <InfoLineGroup>
+            <InfoLine title="Points d'Expérience">
+                <p class="text-lg">{{ daysSinceBorn }}</p>
+            </InfoLine>
+            <InfoLine title="Niveau suivant">
+                <div class="flex flex-col w-full text-right">
+                    <p class="m-0">{{ daysUntilBirthday }}</p>
+                    <progress :value="365 - daysUntilBirthday" max="365"></progress>
+                </div>
+            </InfoLine>
+        </InfoLineGroup>
 
-        <table class="sticky">
-            <tr>
-                <th>Objet</th>
-                <td>
-                    <div class="object">
-                        <img src="/img/object.png" />
-                        Email
-                    </div>
-                </td>
-            </tr>
-        </table>
-
-        <div class="object-description description">
-            Cet objet permet à son détenteur d'être contacté via cette adresse mail :
-            <a href="mailto:lorisweier@gmx.fr">lorisweier@gmx.fr</a>
+        <div class="flex flex-col shadow-md">
+            <InfoLine title="Objet">
+                <div class="flex items-center h-full text-lg">
+                    <img src="@/assets/img/object.png" alt="Objet" class="h-full w-auto pr-2" />
+                    Adresse mail
+                </div>
+            </InfoLine>
+            <div class="flex border-box h-[100px] bg-white py-2 px-10 text-lg">
+                <p>
+                    Cet objet permet à son détenteur d'être contacté via cette adresse mail :
+                    <a href="mailto:loris.weier57@gmail.com">loris.weier57@gmail.com</a>
+                </p>
+            </div>
         </div>
     </div>
 </template>
 
-<style lang="scss" scoped>
-.types {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-
-    .type {
-        width: 120px;
-
-        border-radius: 3px;
-    }
-}
-
-.exp-bar {
-    display: flex;
-    flex-direction: column;
-
-    text-align: right;
-
-    p {
-        margin: 0;
-    }
-}
-
-.object {
-    display: flex;
-    align-items: center;
-
-    img {
-        width: 50px;
-
-        padding-right: 10px;
-    }
-}
-</style>
+<style scoped></style>

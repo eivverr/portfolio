@@ -1,0 +1,112 @@
+import { languages } from '@/data/languageTypesData.ts'
+
+export const projects: Project[] = [
+    {
+        name: 'Dragon Ball',
+        language: languages.html,
+        nbPeople: 2,
+        link: 'https://github.com/eivverr/dbz-website',
+        description: "Un site sur le thème Dragon Ball Z fait en Html/Css pour l'IUT.",
+        category: '🔗 Site Web',
+    },
+    {
+        name: 'Web Portrait',
+        language: languages.html,
+        nbPeople: 1,
+        link: 'https://github.com/eivverr/web-portrait',
+        description: "Un site web faisant notre portrait pour l'IUT.",
+        category: '🔗 Site Web',
+    },
+    {
+        name: 'Tamagotchi',
+        language: languages.javascript,
+        nbPeople: 1,
+        link: 'https://github.com/eivverr/tamagotchi-js',
+        description: "Un tamagotchi fait en JS pour l'IUT.",
+        category: '🌐 Application Web',
+    },
+    {
+        name: 'Démineur',
+        language: languages.javascript,
+        nbPeople: 1,
+        link: 'https://github.com/eivverr/demineur',
+        description: 'Un démineur fait en Javascript.',
+        category: '🌐 Application Web',
+    },
+    {
+        name: 'Fight Game',
+        language: languages.javascript,
+        nbPeople: 1,
+        link: 'https://github.com/eivverr/FightGameJS',
+        description:
+            "Un jeu de combat avec des memes d'internet (petit remake de mon projet Python) fait en Javascript.",
+        category: '🌐 Application Web',
+    },
+    {
+        name: 'Touiteur',
+        language: languages.php,
+        nbPeople: 4,
+        link: 'https://github.com/dylanbaud/touiteur',
+        description: 'Twitter (en mieux) fait en PHP pour la deuxième année du BUT.',
+        category: '🔗 Site Web',
+    },
+    {
+        name: 'Zeldiablo',
+        language: languages.java,
+        nbPeople: 4,
+        link: 'https://github.com/eivverr/2023_Zeldiablo_weier3u_lemeunie6u_chauvel8u_dietric43u',
+        description: 'Un jeu de type Donjon fait en JavaFx pour la première année du BUT.',
+        category: '🎮 Jeu Vidéo',
+    },
+    {
+        name: 'Trebbo',
+        language: languages.java,
+        nbPeople: 4,
+        link: 'https://github.com/IUTNancyCharlemagne/groupes-sae-s3a_baudson_colson_pedretti_weier',
+        description: 'Un todolist comme Trello fait en JavaFx pour la deuxième année du BUT.',
+        category: '💻 Application Desktop',
+    },
+    {
+        name: 'CubRunner',
+        language: languages.unity,
+        nbPeople: 1,
+        link: 'https://github.com/eivverr/Unity-runner-game',
+        description: 'Un jeu de course infini fait en C# avec Unity. Mon premier jeu.',
+        category: '🎮 Jeu Vidéo',
+    },
+    {
+        name: 'Roguelike',
+        language: languages.unity,
+        nbPeople: 1,
+        link: 'https://github.com/eivverr/Roguelike-2D',
+        description:
+            'Un jeu de type RogueLike fait en C# avec Unity. (Non terminé car trop ambitieux)',
+        category: '🎮 Jeu Vidéo',
+    },
+    {
+        name: 'PolyLens',
+        language: languages.unity,
+        nbPeople: 2,
+        link: 'https://github.com/Okiles/PolyLens',
+        description:
+            "Projet en Réalité Mixte réalisé pour l'école Polytech Nancy lors de mon stage de deuxième année de BUT.",
+        category: '🥽 Application de Réalité Mixte',
+    },
+    {
+        name: 'Projet NSI',
+        language: languages.python,
+        nbPeople: 2,
+        link: 'https://github.com/eivverr/Projet',
+        description:
+            "Un projet de NSI fait en Python (auquel j'ai ajouté un autre projet personnel).",
+        category: '⚙️ Autre',
+    },
+    {
+        name: 'FrankyBot',
+        language: languages.python,
+        nbPeople: 1,
+        link: 'https://github.com/eivverr/Franky-bot',
+        description: 'Un bot discord fait en Python.',
+        category: '🤖 Bot',
+    },
+]

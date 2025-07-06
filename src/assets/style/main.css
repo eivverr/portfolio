@@ -1,0 +1,56 @@
+@import 'tailwindcss';
+
+:root {
+    /* ========== Colors ========== */
+    --color-red: #e53142;
+    --color-dark-red: #c42731;
+    --color-blue: #2066cc;
+    --color-blue-light: deepskyblue;
+    --color-grey: #646464;
+    --color-grey-light: #dbdbd9;
+}
+
+/* ========== Global Styles ========== */
+body {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+    color: var(--color-blue);
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+ul {
+    list-style-type: disc;
+    padding-left: 40px;
+}
+
+progress {
+    appearance: none;
+    height: 6px;
+    width: 100%;
+    border-radius: 0;
+    background-color: var(--color-grey);
+}
+
+progress::-webkit-progress-bar {
+    background-color: var(--color-grey);
+}
+
+progress::-webkit-progress-value {
+    background-color: var(--color-blue-light);
+}
+
+progress::-moz-progress-bar {
+    background-color: var(--color-blue-light);
+}
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-dark-red) var(--color-grey-light);
+}

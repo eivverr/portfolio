@@ -1,60 +1,131 @@
-<script setup>
-import CardProject from '@/components/CardProject.vue'
-import { projects } from '@/data/data-projects.js'
-import CardProjectInfo from '@/components/CardProjectInfo.vue'
-import { ref } from 'vue'
+<script setup lang="ts">
+import InfoLine from '@/components/misc/InfoLine.vue'
+import CardProject from '@/components/misc/CardProject.vue'
+import { projects } from '@/data/projectsData.ts'
+import { nextTick, onMounted, onUnmounted, ref } from 'vue'
 
-const projectChoosed = ref(null)
+const emit = defineEmits<{
+    (e: 'hasDetails'): void
+    (e: 'seeDetails'): void
+    (e: 'closeDetails'): void
+}>()
 
-function isProjectChoosed() {
-    return projectChoosed.value !== null
+const isCheckingProjects = ref(false)
+const currentProjectIndex = ref<number | null>(null)
+const lastProjectIndex = ref<number | null>(null)
+const currentProject = ref<Project | null>(null)
+const projectElements = ref<(HTMLElement | null)[]>([])
+
+function setProjectElement(el: HTMLElement | null, index: number) {
+    projectElements.value[index] = el
 }
 
-function onProjectSelect(project) {
-    projectChoosed.value = project
+function setCurrentProject(index: number) {
+    if (index < 0 || index >= projects.length || index === currentProjectIndex.value) {
+        return
+    }
+
+    if (currentProjectIndex.value !== null) {
+        lastProjectIndex.value = currentProjectIndex.value
+    }
+
+    currentProjectIndex.value = index
+    currentProject.value = projects[index]
+    isCheckingProjects.value = true
+    emit('seeDetails')
+
+    nextTick(() => {
+        const elements = projectElements.value
+        if (!elements.length) return
+
+        const target =
+            lastProjectIndex.value !== null && lastProjectIndex.value < index
+                ? elements[index - 2]
+                : elements[index - 1]
+
+        if (target instanceof HTMLElement) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start',
+                inline: 'start',
+            })
+        }
+    })
 }
+
+function resetCurrentProject() {
+    currentProjectIndex.value = null
+    lastProjectIndex.value = null
+    currentProject.value = null
+    isCheckingProjects.value = false
+    emit('closeDetails')
+}
+
+const handleKeyDown = (event: KeyboardEvent) => {
+    if ((event.key === 'a' || event.key === 'A') && !currentProject.value) {
+        setCurrentProject(0)
+    } else if (event.key === 'Escape' || event.key === 'b' || event.key === 'B') {
+        resetCurrentProject()
+    } else if (event.key === 'ArrowDown') {
+        if (currentProjectIndex.value !== null && currentProjectIndex.value < projects.length - 1) {
+            setCurrentProject(currentProjectIndex.value + 1)
+        }
+    } else if (event.key === 'ArrowUp') {
+        if (currentProjectIndex.value !== null && currentProjectIndex.value > 0) {
+            setCurrentProject(currentProjectIndex.value - 1)
+        }
+    }
+}
+
+onMounted(() => {
+    emit('hasDetails')
+    document.addEventListener('keydown', handleKeyDown)
+})
+
+onUnmounted(() => {
+    document.removeEventListener('keydown', handleKeyDown)
+})
 </script>
 
 <template>
-    <div>
-        <div id="projects" class="content_3">
+    <div class="flex flex-col">
+        <div
+            class="reverse-direction flex flex-col pl-10 ml-6 mb-20 max-h-[calc(64px*4)] overflow-y-auto snap-y snap-mandatory"
+        >
             <CardProject
+                v-for="(project, i) in projects"
+                :key="i"
+                :ref="(el) => setProjectElement(el?.root ?? null, i)"
                 :project="project"
-                v-for="project in projects"
-                :key="project.id"
-                @select="onProjectSelect"
+                :active="currentProjectIndex === i"
+                @mousedown.prevent
+                @click="setCurrentProject(i)"
             />
         </div>
 
-        <div id="project_info" class="project_info" v-if="isProjectChoosed">
-            <CardProjectInfo :project="projectChoosed" />
+        <div v-if="isCheckingProjects" class="flex flex-col gap-1">
+            <InfoLine title="Catégorie" shadow>
+                <p class="text-lg">{{ currentProject?.category }}</p>
+            </InfoLine>
+            <InfoLine title="Nb. Personnes" shadow>
+                <p class="text-lg">{{ currentProject?.nbPeople }}</p>
+            </InfoLine>
+            <InfoLine title="Lien" shadow>
+                <a :href="currentProject?.link" target="_blank">Voir le projet</a>
+            </InfoLine>
+            <div class="border-box h-[100px] bg-white py-2 px-10 text-lg shadow-md">
+                <p>{{ currentProject?.description }}</p>
+            </div>
         </div>
     </div>
 </template>
 
 <style scoped>
-.content_3 {
-    display: flex;
-    flex-direction: column;
-    padding: 0 80px;
-    gap: 3px;
-    margin-bottom: 50px;
-    height: 230px;
-    overflow-y: auto;
-    overflow-x: hidden;
-    scrollbar-color: #c42731 #f5f5f5;
+.reverse-direction {
+    direction: rtl;
 }
 
-.content_3::-webkit-scrollbar {
-    width: 10px;
-}
-
-.content_3::-webkit-scrollbar-thumb {
-    background-color: #c42731;
-    border-radius: 10px;
-}
-
-.content_3::-webkit-scrollbar-track {
-    background-color: #f5f5f5;
+.reverse-direction > * {
+    direction: ltr;
 }
 </style>
