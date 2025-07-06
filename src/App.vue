@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue'
-import '@google/model-viewer'
 
 const container = ref<HTMLDivElement | null>(null)
 const scale = ref<number>(1)
