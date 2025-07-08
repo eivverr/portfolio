@@ -13,7 +13,7 @@ export const projects: Project[] = [
         name: 'Puzzle54',
         language: languages.javascript,
         nbPeople: 1,
-        link: 'https://webcarto.infogeo54.fr/index.php/view/map?repository=public&project=puzzle_cd54',
+        link: 'https://weier-loris-rapport-alternance.netlify.app/projects/creations/puzzle54/intro',
         description: "Jeu de puzzle en ligne pour le Conseil Départemental de Meurthe-et-Moselle. Réalisé durant mon alternance.",
         category: '🌐 Application Web',
     },
